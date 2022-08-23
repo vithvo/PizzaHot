@@ -1,11 +1,13 @@
 import React from "react";
 
+import logoSvg from "../../assets/img/logo.svg";
+
 export default function Header() {
   return (
     <div className="header">
       <div className="container">
         <div className="header__logo">
-          <img width="38" src="/img/logo.svg" alt="Pizza logo" />
+          <img width="38" src={logoSvg} alt="PizzaLogo" />
           <div>
             <h1>Pizza Hot</h1>
             <p>Горячая вкусная пицца</p>

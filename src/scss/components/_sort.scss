@@ -8,6 +8,12 @@
 
     svg {
       margin-right: 8px;
+      transform: rotateZ(90deg);
+
+      transition: all 0.1s ease-in-out;
+      &.rotate {
+        transform: rotateZ(180deg);
+      }
     }
 
     b {
@@ -31,9 +37,19 @@
     overflow: hidden;
     padding: 10px 0;
     width: 160px;
+    transition: all 0.05s ease-in-out;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-40%) rotateX(90deg);
+    &-opened {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(-5%) rotateX(0);
+    }
 
     ul {
       overflow: hidden;
+
       li {
         padding: 12px 20px;
         cursor: pointer;

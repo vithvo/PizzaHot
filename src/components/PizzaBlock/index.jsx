@@ -1,33 +1,48 @@
 import React, { useState } from "react";
 
-export default function Block({ title, price, imgUrl }) {
-  const [count, setCount] = useState(0);
+export default function PizzaBlock({ title, price, image, sizes, types }) {
+  const [activeType, setActiveType] = useState(0);
+  const [activeSize, setActiveSize] = useState(0);
 
-  const countPlus = () => {
-    setCount(count + 1);
-  };
+  const typesPizza = ["Тонкое", "Традиционное"];
 
   return (
     <div className="pizza-block">
       <img
-        onClick={() => setCount(0)}
         className="pizza-block__image"
-        src={imgUrl}
+        src={image}
         alt="Pizza"
       />
       <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
-          <li className="active">тонкое</li>
-          <li>традиционное</li>
+          {types.map((type, index) => (
+            <li
+              onClick={() => {
+                setActiveType(type);
+              }}
+              className={activeType === type ? "active" : ""}
+              key={index}
+            >
+              {typesPizza[type]}
+            </li>
+          ))}
         </ul>
         <ul>
-          <li className="active">26 см.</li>
-          <li>30 см.</li>
-          <li>40 см.</li>
+          {sizes.map((size, index) => (
+            <li
+              onClick={() => {
+                setActiveSize(index);
+              }}
+              className={activeSize === index ? "active" : ""}
+              key={index}
+            >
+              {size} см.
+            </li>
+          ))}
         </ul>
       </div>
-      <div onClick={countPlus} className="pizza-block__bottom">
+      <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>
         <div className="button button--outline button--add">
           <svg
@@ -43,7 +58,7 @@ export default function Block({ title, price, imgUrl }) {
             />
           </svg>
           <span>Добавить</span>
-          <i>{count}</i>
+          <i>0</i>
         </div>
       </div>
     </div>

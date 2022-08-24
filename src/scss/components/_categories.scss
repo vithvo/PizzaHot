@@ -2,8 +2,9 @@
 
 .categories {
   @media (max-width: 1010px) {
-    width: 98%;
+    width: 99%;
     overflow: scroll;
+    z-index: 2;
 
     &::before {
       content: "";
@@ -16,6 +17,7 @@
       border-radius: 50%;
       @media (max-width: 400px) {
         height: 50px;
+        z-index: 0;
       }
     }
     &::after {
@@ -27,6 +29,7 @@
       bottom: 4px;
       right: 0;
       border-radius: 50%;
+      z-index: 0;
       @media (max-width: 400px) {
         height: 50px;
       }

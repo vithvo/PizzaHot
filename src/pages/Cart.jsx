@@ -245,29 +245,32 @@ export default function Cart() {
               Сумма заказа: <b>900 ₽</b>{" "}
             </span>
           </div>
-          <div className="cart__bottom-buttons">
-            <a className="button button--outline button--add go-back-btn" href="/">
-              <svg
-                width="8"
-                height="14"
-                viewBox="0 0 8 14"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7 13L1 6.93015L6.86175 1"
-                  stroke="#D3D3D3"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-              </svg>
-              <span>Вернуться назад</span>
-            </a>
-            <div className="button pay-btn">
-              <span>Оплатить сейчас</span>
+
+          <Link to="/">
+            <div className="cart__bottom-buttons">
+              <a className="button button--outline button--add go-back-btn" href="/">
+                <svg
+                  width="8"
+                  height="14"
+                  viewBox="0 0 8 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7 13L1 6.93015L6.86175 1"
+                    stroke="#D3D3D3"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </svg>
+                <span>Вернуться назад</span>
+              </a>
+              <div className="button pay-btn">
+                <span>Оплатить сейчас</span>
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
 

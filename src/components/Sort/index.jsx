@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
-export default function Sort() {
-  const [openSort, setOpenSort] = useState(false);
-  const [chosenSort, setChosenSort] = useState("популярности");
+export default function Sort({ value, onClickSort }) {
+  const [openSort, setOpenSort] = useState(false)
 
-  const sortItem = ["популярности", "цене", "алфавиту"];
+  const sortItem = [
+    { name: "популярности", sortProperty: "rating" },
+    { name: "цене", sortProperty: "price" },
+    { name: "алфавиту", sortProperty: "title" },
+  ]
 
   return (
     <div className="sort">
@@ -23,25 +26,25 @@ export default function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpenSort(!openSort)}>{chosenSort}</span>
+        <span onClick={() => setOpenSort(!openSort)}>{value.name}</span>
       </div>
 
       <div className={openSort ? "sort__popup sort__popup-opened" : "sort__popup"}>
         <ul>
-          {sortItem.map((item, index) => (
+          {sortItem.map((sort, index) => (
             <li
               key={index}
               onClick={() => {
-                setChosenSort(item);
-                setOpenSort(!openSort);
+                onClickSort(sort)
+                setOpenSort(!openSort)
               }}
-              className={chosenSort === item ? "active" : ""}
+              className={value.name === sort.name ? "active" : ""}
             >
-              {item}
+              {sort.name}
             </li>
           ))}
         </ul>
       </div>
     </div>
-  );
+  )
 }

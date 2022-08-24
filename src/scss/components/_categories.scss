@@ -1,8 +1,44 @@
-@import '../variables';
+@import "../variables";
 
 .categories {
+  @media (max-width: 1010px) {
+    width: 98%;
+    overflow: scroll;
+
+    &::before {
+      content: "";
+      width: 5px;
+      height: 60px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 0.5) 100%);
+      position: absolute;
+      bottom: 4px;
+      left: 0;
+      border-radius: 50%;
+      @media (max-width: 400px) {
+        height: 50px;
+      }
+    }
+    &::after {
+      content: "";
+      width: 5px;
+      height: 60px;
+      background: linear-gradient(270deg, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 0.5) 100%);
+      position: absolute;
+      bottom: 4px;
+      right: 0;
+      border-radius: 50%;
+      @media (max-width: 400px) {
+        height: 50px;
+      }
+    }
+  }
+
   ul {
     display: flex;
+
+    @media (max-width: 1010px) {
+      width: 850px;
+    }
 
     li {
       background-color: #f9f9f9;
@@ -13,7 +49,9 @@
       cursor: pointer;
       transition: background-color 0.1s ease-in-out;
       @include noselect();
-
+      @media (max-width: 400px) {
+        padding: 8px 20px;
+      }
       &:hover {
         background-color: darken(#f9f9f9, 2%);
       }
@@ -25,6 +63,10 @@
       &.active {
         background-color: #282828;
         color: #fff;
+      }
+
+      @media (max-width: 1010px) {
+        margin-bottom: 10px;
       }
     }
   }

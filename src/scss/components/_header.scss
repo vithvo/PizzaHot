@@ -1,13 +1,23 @@
-@import '../variables';
+@import "../variables";
 
 .header {
   border-bottom: 1px solid $gray-line;
   padding: 40px 0;
 
+  @media (max-width: 550px) {
+    padding-bottom: 0;
+  }
+
   .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    @media (max-width: 550px) {
+      padding: 0 10px;
+      position: relative;
+			justify-content: center;
+    }
   }
 
   &__logo {
@@ -27,6 +37,17 @@
 
     p {
       color: #7b7b7b;
+    }
+
+    @media (max-width: 550px) {
+ 
+    }
+  }
+
+  &__cart {
+    @media (max-width: 550px) {
+      padding-top: 20px;
+
     }
   }
 }

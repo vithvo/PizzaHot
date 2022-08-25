@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
@@ -6,7 +6,11 @@ import PizzaBlock from "../components/PizzaBlock";
 import PizzaLoader from "../components/PizzaBlock/PizzaLoader";
 import Pagination from "../components/Pagination";
 
-export default function Home({ searchValue, setSearchValue }) {
+import { SearchContext } from "../App";
+
+export default function Home({}) {
+  const { searchValue, setSearchValue } = useContext(SearchContext);
+
   const [items, setItems] = useState([]);
   const [isLoading, setIsloading] = useState(true);
   const [categoryName, setCategoryName] = useState("Все");

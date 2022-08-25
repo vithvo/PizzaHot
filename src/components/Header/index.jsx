@@ -24,7 +24,7 @@ export default function Header({}) {
 
         <Link to="/Cart">
           <div className="header__cart">
-            <a href="/cart.html" className="button button--cart">
+            <button href="/cart.html" className="button button--cart">
               <span>520 ₽</span>
               <div className="button__delimiter"></div>
               <svg
@@ -57,7 +57,7 @@ export default function Header({}) {
                 />
               </svg>
               <span>3</span>
-            </a>
+            </button>
           </div>
         </Link>
       </div>

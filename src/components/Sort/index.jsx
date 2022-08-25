@@ -4,9 +4,12 @@ export default function Sort({ value, onClickSort }) {
   const [openSort, setOpenSort] = useState(false)
 
   const sortItem = [
-    { name: "популярности", sortProperty: "rating" },
-    { name: "цене", sortProperty: "price" },
-    { name: "алфавиту", sortProperty: "title" },
+    { name: "популярности ᐃ", sortProperty: "-rating" },
+    { name: "популярности ᐁ", sortProperty: "rating" },
+    { name: "цене ᐃ", sortProperty: "-price" },
+    { name: "цене ᐁ", sortProperty: "price" },
+    { name: "алфавиту ᐃ", sortProperty: "-title" },
+    { name: "алфавиту ᐁ", sortProperty: "title" },
   ]
 
   return (

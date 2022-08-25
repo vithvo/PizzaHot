@@ -1,27 +1,36 @@
-import React from "react"
-import { Routes, Route } from "react-router-dom"
+import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 
-import Header from "./components/Header"
+import Header from "./components/Header";
 
-import Home from "./pages/Home"
-import NotFound from "./pages/NotFound"
-import Cart from "./pages/Cart"
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
+import Cart from "./pages/Cart";
 
-import "./scss/app.scss"
+import "./scss/app.scss";
+
+export const SearchContext = React.createContext("");
 
 function App() {
+  const [searchValue, setSearchValue] = useState("");
+
   return (
     <div className="wrapper">
-      <Header />
-      <div className="content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Cart" element={<Cart />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </div>
+      <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+        <Header />
+        <div className="content">
+          <Routes>
+            <Route
+              path="/"
+              element={<Home searchValue={searchValue} setSearchValue={setSearchValue} />}
+            />
+            <Route path="/Cart" element={<Cart />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+      </SearchContext.Provider>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

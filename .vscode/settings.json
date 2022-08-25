@@ -9,7 +9,7 @@
   "prettier.printWidth": 100,
   "prettier.proseWrap": "preserve",
   "prettier.quoteProps": "preserve",
-  "prettier.semi": false,
+  "prettier.semi": true,
   "prettier.singleAttributePerLine": false,
   "prettier.singleQuote": false
 }

@@ -34,6 +34,9 @@
       color: $orange;
       border-bottom: 1px dashed $orange;
       cursor: pointer;
+      @media (max-width: 400px) {
+        font-size: 14px;
+      }
     }
   }
 
@@ -46,19 +49,18 @@
     border-radius: 10px;
     overflow: hidden;
     padding: 10px 0;
-    width: 160px;
+    width: 165px;
     transition: all 0.05s ease-in-out;
     visibility: hidden;
     opacity: 0;
     transform: translateY(-40%) rotateX(90deg);
     @media (max-width: 1300px) {
-      left: 270px;
-      top: 0;
+      left: 0;
       margin: 0;
       padding: 0;
       overflow: visible;
       width: 330px;
-      transform: translateY(-40%) rotateX(0);
+      transform: translateY(0%) rotateX(0);
     }
     @media (max-width: 760px) {
       left: 0;
@@ -68,27 +70,22 @@
     &-opened {
       visibility: visible;
       opacity: 1;
-      transform: translateY(-5%) rotateX(0);
+      transform: translateY(-2%) rotateX(0);
       @media (max-width: 1300px) {
-        left: 270px;
+        left: 0;
         top: 0;
         margin: 0;
         padding: 0;
         overflow: visible;
-        width: 330px;
-        transform: translateY(-30%) rotateX(0);
-      }
-      @media (max-width: 760px) {
+        width: 770px;
         position: relative;
-        left: 0;
-
-        transform: translateY(25%) rotateX(0);
+        transform: translateY(24%) rotateX(0);
       }
-      @media (max-width: 400px) {
+      @media (max-width: 940px) {
         position: relative;
         left: 0;
         width: 250px;
-        transform: translateY(0) rotateX(0);
+        transform: translateY(3%) rotateX(0);
       }
     }
 
@@ -97,7 +94,7 @@
       @media (max-width: 1300px) {
         display: flex;
       }
-      @media (max-width: 400px) {
+      @media (max-width: 940px) {
         display: block;
       }
 

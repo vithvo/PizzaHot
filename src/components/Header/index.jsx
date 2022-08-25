@@ -1,9 +1,11 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import React from "react";
+import { Link } from "react-router-dom";
 
-import logoSvg from "../../assets/img/logo.svg"
+import logoSvg from "../../assets/img/logo.svg";
 
-export default function Header() {
+import Search from "../Search";
+
+export default function Header({}) {
   return (
     <div className="header">
       <div className="container">
@@ -17,6 +19,8 @@ export default function Header() {
             </div>
           </div>
         </Link>
+
+        <Search />
 
         <Link to="/Cart">
           <div className="header__cart">
@@ -58,5 +62,5 @@ export default function Header() {
         </Link>
       </div>
     </div>
-  )
+  );
 }

@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
@@ -6,16 +7,12 @@ import PizzaBlock from "../components/PizzaBlock";
 import PizzaLoader from "../components/PizzaBlock/PizzaLoader";
 import Pagination from "../components/Pagination";
 
-import { SearchContext } from "../App";
-
 export default function Home({}) {
-  const { searchValue, setSearchValue } = useContext(SearchContext);
+  const { sortType, searchValue, categoryName } = useSelector((state) => state.filter);
 
   const [items, setItems] = useState([]);
   const [isLoading, setIsloading] = useState(true);
-  const [categoryName, setCategoryName] = useState("Все");
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortType, setSortType] = useState({ name: "выберите", sortProperty: "rating" });
 
   useEffect(() => {
     setIsloading(true);
@@ -48,13 +45,10 @@ export default function Home({}) {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories
-          value={categoryName}
-          onClickCategory={(categoryName) => setCategoryName(categoryName)}
-        />
-        <Sort value={sortType} onClickSort={(sortType) => setSortType(sortType)} />
+        <Categories />
+        <Sort />
       </div>
-      <h2 className="content__title">Все пиццы </h2>
+      <h2 className="content__title">Все пиццы</h2>
 
       <div className="content__items">{isLoading ? pizzasLoader : pizzas}</div>
 

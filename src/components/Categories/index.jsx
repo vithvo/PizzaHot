@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { setCategoryName } from "../../redux/slices/filterSlice";
 
-export default function Categories({}) {
+export default function Categories() {
   const categoryName = useSelector((state) => state.filter.categoryName);
   const dispatch = useDispatch();
 

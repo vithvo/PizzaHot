@@ -1,19 +1,29 @@
-import React, { useContext } from "react";
+import React, { useCallback, useRef, useState } from "react";
+import debounce from "lodash.debounce";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 
 import { setSearchValue } from "../../redux/slices/filterSlice";
 import styles from "./Search.module.scss";
 
-export default function Search({}) {
-  const searchValue = useSelector((state) => state.filter.searchValue);
+export default function Search() {
+  const [value, setValue] = useState("");
+
   const dispatch = useDispatch();
 
+  const updateSearch = useCallback(
+    debounce((str) => {
+      dispatch(setSearchValue(str));
+    }, 250),
+    []
+  );
 
-
-  const onChange = (name) => {
-    dispatch(setSearchValue(name.target.value));
+  const onChange = (event) => {
+    setValue(event.target.value);
+    updateSearch(event.target.value);
   };
+
+  const inputRef = useRef();
 
   return (
     <div className={styles.search}>
@@ -34,15 +44,20 @@ export default function Search({}) {
         </g>
       </svg>
       <input
-        value={searchValue}
+        ref={inputRef}
+        value={value}
         onChange={onChange}
         className={styles.input}
         type="text"
         placeholder="Поиск пиццы..."
       />
-      {searchValue && (
+      {value && (
         <svg
-          onClick={() => setSearchValue("")}
+          onClick={() => {
+            dispatch(setSearchValue(""));
+            setValue("");
+            inputRef.current.focus();
+          }}
           className={styles.iconClose}
           enableBackground="new 0 0 24 24"
           version="1.1"

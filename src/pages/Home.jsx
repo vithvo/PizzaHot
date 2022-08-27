@@ -23,7 +23,7 @@ export default function Home() {
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
-  const fetchPizzas = () => {
+  const fetchPizzas = async () => {
     setIsloading(true);
 
     const order = sortType.sortProperty.includes("-") ? "asc" : "desc";
@@ -31,14 +31,12 @@ export default function Home() {
     const category = categoryName !== "Все" ? `&category=${categoryName}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
 
-    axios
-      .get(
-        `https://6304caef94b8c58fd72534d6.mockapi.io/items?page=${currentPage}&limit=8${category}&sortBy=${sortBy}&order=${order}${search}`
-      )
-      .then((res) => {
-        setItems(res.data);
-        setIsloading(false);
-      });
+    const res = await axios.get(
+      `https://6304caef94b8c58fd72534d6.mockapi.io/items?page=${currentPage}&limit=8${category}&sortBy=${sortBy}&order=${order}${search}`
+    );
+
+    setItems(res.data);
+    setIsloading(false);
   };
 
   // Проверяем был ли первый рендер, если не было - не меняем адресную строку. Если рендер был - вшиваем параметры в адресную строку

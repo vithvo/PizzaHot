@@ -14,6 +14,12 @@ export default function PizzaBlock({ id, title, price, image, sizes, types }) {
   const cartItem = useSelector((state) => state.cart.items.find((obj) => obj.id === id));
 
   const addedCount = cartItem ? cartItem.count : 0;
+  const priceType = activeType ? price * 1.2 : price;
+  price = activeSize
+    ? activeSize == 1
+      ? Math.ceil(priceType * 1.16)
+      : Math.ceil(priceType * 1.54)
+    : priceType;
 
   const onClickAdd = () => {
     const item = {
@@ -22,7 +28,7 @@ export default function PizzaBlock({ id, title, price, image, sizes, types }) {
       price,
       image,
       type: typesPizza[activeType],
-      size: activeSize,
+      size: sizes[activeSize],
     };
     dispatch(setItem(item));
   };

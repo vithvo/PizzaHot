@@ -12,7 +12,7 @@ import PizzaBlock from "../components/PizzaBlock";
 import PizzaLoader from "../components/PizzaBlock/PizzaLoader";
 import Pagination from "../components/Pagination";
 
-export default function Home() {
+const Home: React.FC = () => {
   const { sortType, searchValue, categoryName, currentPage } = useSelector(selectFilter);
   const { items, isLoading } = useSelector(selectPizzaData);
 
@@ -27,7 +27,10 @@ export default function Home() {
     const category = categoryName !== "Все" ? `&category=${categoryName}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
 
-    dispatch(fetchPizzas({ order, sortBy, category, search, currentPage }));
+    dispatch(
+      // @ts-ignore
+      fetchPizzas({ order, sortBy, category, search, currentPage })
+    );
   };
 
   // Проверяем был ли первый рендер, если не было - не меняем адресную строку. Если рендер был - вшиваем параметры в адресную строку
@@ -67,7 +70,7 @@ export default function Home() {
     isSearch.current = false;
   }, [categoryName, sortType, searchValue, currentPage]);
 
-  const pizzas = items.map((item) => (
+  const pizzas = items.map((item: any) => (
     <Link key={item.id} to={`/pizza/${item.id}`}>
       <PizzaBlock {...item} />
     </Link>
@@ -75,7 +78,7 @@ export default function Home() {
 
   const pizzasLoader = [...new Array(8)].map((_, index) => <PizzaLoader key={index} />);
 
-  const onChangePage = (number) => {
+  const onChangePage = (number: number) => {
     dispatch(setCurrentPage(number));
   };
 
@@ -103,4 +106,6 @@ export default function Home() {
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
-}
+};
+
+export default Home;

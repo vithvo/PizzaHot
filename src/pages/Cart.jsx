@@ -91,8 +91,8 @@ export default function Cart({}) {
             </button>
           </div>
           <div className="content__items">
-            {items.map((item) => (
-              <CartItem key={item.id} {...item} />
+            {items.map((item, i) => (
+              <CartItem key={i} {...item} />
             ))}
           </div>
 

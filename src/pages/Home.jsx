@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import qs from "qs";
 
 import { setCurrentPage, setFilters } from "../redux/slices/filterSlice";
+import { fetchPizzas } from "../redux/slices/pizzasSlice";
 import Categories from "../components/Categories";
 import Sort, { sortItem } from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
@@ -14,29 +15,20 @@ import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const { sortType, searchValue, categoryName, currentPage } = useSelector((state) => state.filter);
-
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsloading] = useState(true);
+  const { items, isLoading } = useSelector((state) => state.pizzas);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
-  const fetchPizzas = async () => {
-    setIsloading(true);
-
+  const getPizzas = async () => {
     const order = sortType.sortProperty.includes("-") ? "asc" : "desc";
     const sortBy = sortType.sortProperty.replace("-", "");
     const category = categoryName !== "Все" ? `&category=${categoryName}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
 
-    const res = await axios.get(
-      `https://6304caef94b8c58fd72534d6.mockapi.io/items?page=${currentPage}&limit=8${category}&sortBy=${sortBy}&order=${order}${search}`
-    );
-
-    setItems(res.data);
-    setIsloading(false);
+    dispatch(fetchPizzas({ order, sortBy, category, search, currentPage }));
   };
 
   // Проверяем был ли первый рендер, если не было - не меняем адресную строку. Если рендер был - вшиваем параметры в адресную строку
@@ -68,11 +60,10 @@ export default function Home() {
   }, []);
 
   // Если быд первый рендер - то запрашиваем пиццы
-
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    !isSearch.current && fetchPizzas();
+    !isSearch.current && getPizzas();
 
     isSearch.current = false;
   }, [categoryName, sortType, searchValue, currentPage]);
@@ -95,7 +86,18 @@ export default function Home() {
       </div>
       <h2 className="content__title">Все пиццы</h2>
 
-      <div className="content__items">{isLoading ? pizzasLoader : pizzas}</div>
+      {isLoading === "error" ? (
+        <div className="cart cart--empty">
+          <h2>Произошла ошибка 😕</h2>
+          <p>
+            К сожалению, не удалось получить пиццы,
+            <br />
+            попробуйте повторить попытку позже
+          </p>
+        </div>
+      ) : (
+        <div className="content__items">{isLoading == "loading" ? pizzasLoader : pizzas}</div>
+      )}
 
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>

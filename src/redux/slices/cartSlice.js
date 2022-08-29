@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { startTransition } from "react";
 
 const initialState = {
   items: [],
@@ -12,9 +11,7 @@ export const cartSlice = createSlice({
 
   reducers: {
     setItem(state, action) {
-      const findItem =
-        state.items.find((obj) => obj.id === action.payload.id) &&
-        state.items.find((obj) => obj.sizes === action.payload.sizes);
+      const findItem = state.items.find((obj) => obj.id === action.payload.id);
       findItem ? findItem.count++ : state.items.push({ ...action.payload, count: 1 });
 
       state.totalPrice = state.items.reduce((sum, obj) => obj.price * obj.count + sum, 0);

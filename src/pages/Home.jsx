@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { selectFilter, setCurrentPage, setFilters } from "../redux/slices/filterSlice";
 import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzasSlice";
 import Categories from "../components/Categories";
-import Sort, { sortItem } from "../components/Sort";
+import Sort, { sortItem } from "../components/Sort/index";
 import PizzaBlock from "../components/PizzaBlock";
 import PizzaLoader from "../components/PizzaBlock/PizzaLoader";
 import Pagination from "../components/Pagination";

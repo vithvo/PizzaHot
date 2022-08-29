@@ -6,24 +6,24 @@ import { useDispatch } from "react-redux";
 import { setSearchValue } from "../../redux/slices/filterSlice";
 import styles from "./Search.module.scss";
 
-export default function Search() {
+const Search: React.FC = () => {
   const [value, setValue] = useState("");
 
   const dispatch = useDispatch();
 
   const updateSearch = useCallback(
-    debounce((str) => {
+    debounce((str: string) => {
       dispatch(setSearchValue(str));
     }, 250),
     []
   );
 
-  const onChange = (event) => {
+  const onChange = (event: any) => {
     setValue(event.target.value);
     updateSearch(event.target.value);
   };
 
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <div className={styles.search}>
@@ -56,7 +56,7 @@ export default function Search() {
           onClick={() => {
             dispatch(setSearchValue(""));
             setValue("");
-            inputRef.current.focus();
+            inputRef.current?.focus();
           }}
           className={styles.iconClose}
           enableBackground="new 0 0 24 24"
@@ -74,4 +74,6 @@ export default function Search() {
       )}
     </div>
   );
-}
+};
+
+export default Search;

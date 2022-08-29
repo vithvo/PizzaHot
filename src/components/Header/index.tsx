@@ -7,7 +7,7 @@ import logoSvg from "../../assets/img/logo.svg";
 import Search from "../Search";
 import { selectCart } from "../../redux/slices/cartSlice";
 
-export default function Header() {
+const Header: React.FC = () => {
   const { items, totalPrice } = useSelector(selectCart);
 
   const location = useLocation();
@@ -29,7 +29,7 @@ export default function Header() {
         <Link to="/Cart">
           {location.pathname !== "/Cart" && (
             <div className="header__cart">
-              <button href="/cart.html" className="button button--cart">
+              <button className="button button--cart">
                 <span>{totalPrice} ₽</span>
                 <div className="button__delimiter"></div>
                 <svg
@@ -61,7 +61,17 @@ export default function Header() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <span>{items.reduce((sum, item) => sum + item.count, 0)}</span>
+                <span>
+                  {items.reduce(
+                    (
+                      sum: number,
+                      item: {
+                        count: number;
+                      }
+                    ) => sum + item.count,
+                    0
+                  )}
+                </span>
               </button>
             </div>
           )}
@@ -69,4 +79,6 @@ export default function Header() {
       </div>
     </div>
   );
-}
+};
+
+export default Header;

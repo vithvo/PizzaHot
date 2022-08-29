@@ -1,21 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import qs from "qs";
+import { Link, useNavigate } from "react-router-dom";
 
-import { setCurrentPage, setFilters } from "../redux/slices/filterSlice";
-import { fetchPizzas } from "../redux/slices/pizzasSlice";
+import { selectFilter, setCurrentPage, setFilters } from "../redux/slices/filterSlice";
+import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzasSlice";
 import Categories from "../components/Categories";
 import Sort, { sortItem } from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import PizzaLoader from "../components/PizzaBlock/PizzaLoader";
 import Pagination from "../components/Pagination";
-import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-  const { sortType, searchValue, categoryName, currentPage } = useSelector((state) => state.filter);
-  const { items, isLoading } = useSelector((state) => state.pizzas);
+  const { sortType, searchValue, categoryName, currentPage } = useSelector(selectFilter);
+  const { items, isLoading } = useSelector(selectPizzaData);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -68,9 +67,11 @@ export default function Home() {
     isSearch.current = false;
   }, [categoryName, sortType, searchValue, currentPage]);
 
-  const pizzas = items
-    .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-    .map((item) => <PizzaBlock key={item.id} {...item} />);
+  const pizzas = items.map((item) => (
+    <Link key={item.id} to={`/pizza/${item.id}`}>
+      <PizzaBlock {...item} />
+    </Link>
+  ));
 
   const pizzasLoader = [...new Array(8)].map((_, index) => <PizzaLoader key={index} />);
 
@@ -96,7 +97,7 @@ export default function Home() {
           </p>
         </div>
       ) : (
-        <div className="content__items">{isLoading == "loading" ? pizzasLoader : pizzas}</div>
+        <div className="content__items">{isLoading === "loading" ? pizzasLoader : pizzas}</div>
       )}
 
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />

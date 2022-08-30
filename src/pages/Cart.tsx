@@ -131,7 +131,7 @@ const Cart: React.FC = ({}) => {
                 </button>
               </Link>
               <button className="button pay-btn">
-                <span>Оплатить сейчас</span>
+                <span>Оплатить сейчас</span>  
               </button>
             </div>
           </div>

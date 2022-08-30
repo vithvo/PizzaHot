@@ -1,24 +1,14 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { setItem, unSetItem, removeItem } from "../../redux/slices/cartSlice";
+import { setItem, unSetItem, removeItem, CartItemType } from "../../redux/slices/cartSlice";
 
-type CartItemProps = {
-  id: string;
-  title: string;
-  price: number;
-  type: string;
-  count: number;
-  image: string;
-  size: number;
-};
-
-const CartItem: React.FC<CartItemProps> = ({ id, title, price, type, count, image, size }) => {
+const CartItem: React.FC<CartItemType> = ({ id, title, price, type, count, image, size }) => {
   const dispatch = useDispatch();
 
-  const onClickPlus = () => dispatch(setItem({ id }));
-  const onClickMinus = () => dispatch(unSetItem({ id }));
-  const onClickRemove = () => dispatch(removeItem({ id }));
+  const onClickPlus = () => dispatch(setItem({ id } as CartItemType));
+  const onClickMinus = () => dispatch(unSetItem({ id } as CartItemType));
+  const onClickRemove = () => dispatch(removeItem({ id } as CartItemType));
 
   return (
     <div className="cart__item">
@@ -33,8 +23,11 @@ const CartItem: React.FC<CartItemProps> = ({ id, title, price, type, count, imag
       </div>
       <div className="cart__item-count">
         <button
+          disabled={count === 1}
           onClick={() => onClickMinus()}
-          className="button button--outline button--circle cart__item-count-minus"
+          className={` button button--outline button--circle cart__item-count-minus ${
+            count === 1 && "disabled"
+          } `}
         >
           <svg
             width="10"

@@ -1,73 +1,85 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import qs from "qs";
-import { Link, useNavigate } from "react-router-dom";
+// import qs from "qs";
+import { Link } from "react-router-dom";
 
-import { selectFilter, setCurrentPage, setFilters } from "../redux/slices/filterSlice";
+import { selectFilter, setCurrentPage } from "../redux/slices/filterSlice";
 import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzasSlice";
 import Categories from "../components/Categories";
-import Sort, { sortItem } from "../components/Sort/index";
+import Sort from "../components/Sort/index";
 import PizzaBlock from "../components/PizzaBlock";
 import PizzaLoader from "../components/PizzaBlock/PizzaLoader";
 import Pagination from "../components/Pagination";
+import { useAppDispatch } from "../redux/store";
 
 const Home: React.FC = () => {
   const { sortType, searchValue, categoryName, currentPage } = useSelector(selectFilter);
   const { items, isLoading } = useSelector(selectPizzaData);
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const isSearch = useRef(false);
-  const isMounted = useRef(false);
+  const dispatch = useAppDispatch();
+  // const navigate = useNavigate();
+  // const isSearch = useRef(false);
+  // const isMounted = useRef(false);
 
   const getPizzas = async () => {
-    const order = sortType.sortProperty.includes("-") ? "asc" : "desc";
     const sortBy = sortType.sortProperty.replace("-", "");
+    const order = sortType.sortProperty.includes("-") ? "asc" : "desc";
     const category = categoryName !== "Все" ? `&category=${categoryName}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
 
     dispatch(
-      // @ts-ignore
-      fetchPizzas({ order, sortBy, category, search, currentPage })
+      fetchPizzas({
+        order,
+        sortBy,
+        category,
+        search,
+        currentPage: String(currentPage),
+      })
     );
   };
 
   // Проверяем был ли первый рендер, если не было - не меняем адресную строку. Если рендер был - вшиваем параметры в адресную строку
 
-  useEffect(() => {
-    if (isMounted.current) {
-      const queryString = qs.stringify({
-        sortProperty: sortType.sortProperty,
-        categoryName,
-        currentPage,
-      });
-      navigate(`?${queryString}`);
-    }
-    isMounted.current = true;
-  }, [categoryName, sortType.sortProperty, currentPage]);
+  // useEffect(() => {
+  //   if (isMounted.current) {
+  //     const queryString = qs.stringify({
+  //       sortProperty: sortType.sortProperty,
+  //       categoryName,
+  //       currentPage,
+  //     });
+  //     navigate(`?${queryString}`);
+  //   }
+  //   isMounted.current = true;
+  // }, [categoryName, sortType.sortProperty, currentPage]);
 
-  // Если был первый рендер, то проверяем URL параметры и сохраняем в Redux
+  // // Если был первый рендер, то проверяем URL параметры и сохраняем в Redux
 
-  useEffect(() => {
-    if (window.location.search) {
-      const params = qs.parse(window.location.search.replace("?", ""));
-      const sortType = sortItem.find((obj) => obj.sortProperty === params.sortProperty);
-      // console.log(params);
+  // useEffect(() => {
+  //   if (window.location.search) {
+  //     const params = qs.parse(window.location.search.replace("?", ""));
+  //     const sortType = sortItem.find((obj) => obj.sortProperty === params.sortProperty);
 
-      dispatch(setFilters({ ...params, sortType }));
+  //     dispatch(
+  //       setFilters({
+  //         searchValue,
+  //         categoryName: String(params.category),
+  //         sortType: sortType || sortItem[0],
+  //         currentPage: Number(params.currentPage),
+  //       })
+  //     );
 
-      isSearch.current = true;
-    }
-  }, []);
+  //     isSearch.current = true;
+  //   }
+  // }, []);
 
   // Если быд первый рендер - то запрашиваем пиццы
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    !isSearch.current && getPizzas();
+    // !isSearch.current && 
+		getPizzas();
 
-    isSearch.current = false;
+    // isSearch.current = false;
   }, [categoryName, sortType, searchValue, currentPage]);
 
   const pizzas = items.map((item: any) => (
@@ -85,6 +97,8 @@ const Home: React.FC = () => {
   return (
     <div className="container">
       <div className="content__top">
+
+
         <Categories />
         <Sort />
       </div>

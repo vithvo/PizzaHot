@@ -1,23 +1,27 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setSortType } from "../../redux/slices/filterSlice";
+import { setSortType, SortPropertyEnum } from "../../redux/slices/filterSlice";
 
-type SortItemType = {
+export type SortItemType = {
   name: string;
-  sortProperty: string;
+  sortProperty: SortPropertyEnum;
 };
 
 export const sortItem: SortItemType[] = [
-  { name: "популярности ᐃ", sortProperty: "-rating" },
-  { name: "популярности ᐁ", sortProperty: "rating" },
-  { name: "цене ᐃ", sortProperty: "-price" },
-  { name: "цене ᐁ", sortProperty: "price" },
-  { name: "алфавиту ᐃ", sortProperty: "-title" },
-  { name: "алфавиту ᐁ", sortProperty: "title" },
+  { name: "популярности ᐃ", sortProperty: SortPropertyEnum.RATING_DESC },
+  { name: "популярности ᐁ", sortProperty: SortPropertyEnum.RATING_ASC },
+  { name: "цене ᐃ", sortProperty: SortPropertyEnum.PRICE_DESC },
+  { name: "цене ᐁ", sortProperty: SortPropertyEnum.PRICE_ASC },
+  { name: "алфавиту ᐃ", sortProperty: SortPropertyEnum.TITLE_DESC },
+  { name: "алфавиту ᐁ", sortProperty: SortPropertyEnum.TITLE_ASC },
 ];
 
-const Sort: React.FC = () => {
+type PopupClick = MouseEvent & {
+  path: Node[];
+};
+
+const Sort: React.FC = memo(() => {
   const sortType = useSelector((state: any) => state.filter.sortType);
   const dispatch = useDispatch();
 
@@ -30,9 +34,9 @@ const Sort: React.FC = () => {
   const sortRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      console.log(event);
-      if (!event.path.includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      const _event = event as PopupClick;
+      if (sortRef.current && !_event.path.includes(sortRef.current)) {
         setOpenSort(false);
       }
     };
@@ -79,6 +83,6 @@ const Sort: React.FC = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Sort;

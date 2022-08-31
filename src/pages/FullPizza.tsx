@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const FullPizza: React.FC = () => {
   const [pizza, setPizza] = useState<{
@@ -27,16 +27,19 @@ const FullPizza: React.FC = () => {
 
   return (
     <>
-      {pizza ? (
-        <div className="container cart--empty">
-          <img src={pizza.image} alt="Pizza" />
-          <h2>{pizza.title}</h2>
-          <h4>{pizza.price}</h4>
-        </div>
-      ) : (
-        <div className="cart--empty">
-          <h1>Загрузка...</h1>
-        </div>
+      {pizza && (
+        <>
+          <div className="container cart--empty">
+            <img src={pizza.image} alt="Pizza" />
+            <h2>{pizza.title}</h2>
+            <h4>{pizza.price} руб.</h4>
+            <Link to="/">
+              <button className="button button--black">
+                <span>Вернуться назад</span>
+              </button>
+            </Link>
+          </div>
+        </>
       )}
     </>
   );

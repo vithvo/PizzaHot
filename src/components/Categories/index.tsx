@@ -1,8 +1,7 @@
 import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useWhyDidYouUpdate } from "ahooks";
-
-import { setCategoryName } from "../../redux/slices/filterSlice";
+import { setCategoryName } from "../../redux/filter/slice";
+// import { useWhyDidYouUpdate } from "ahooks";
 
 const categories = ["Все", "Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"];
 
@@ -10,7 +9,8 @@ const Categories: React.FC = memo(() => {
   const categoryName = useSelector((state: any) => state.filter.categoryName);
   const dispatch = useDispatch();
 
-  useWhyDidYouUpdate("Categoties", { categoryName });
+  // useWhyDidYouUpdate("Categoties", { categoryName });
+
   const onClickCategory = (name: string) => {
     dispatch(setCategoryName(name));
   };
@@ -30,6 +30,6 @@ const Categories: React.FC = memo(() => {
       </ul>
     </div>
   );
-})
+});
 
 export default Categories;

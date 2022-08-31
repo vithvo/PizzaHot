@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { clearItems, selectCart } from "../redux/slices/cartSlice";
-
 import CartItem from "../components/Cart/CartItem";
 import CartEmpty from "../components/Cart/CartEmpty";
+import { selectCart } from "../redux/cart/selectors";
+import { clearItems } from "../redux/cart/slice";
 
 const Cart: React.FC = ({}) => {
   const dispatch = useDispatch();
@@ -131,7 +131,7 @@ const Cart: React.FC = ({}) => {
                 </button>
               </Link>
               <button className="button pay-btn">
-                <span>Оплатить сейчас</span>  
+                <span>Оплатить сейчас</span>
               </button>
             </div>
           </div>

@@ -3,14 +3,16 @@ import { useSelector } from "react-redux";
 // import qs from "qs";
 import { Link } from "react-router-dom";
 
-import { selectFilter, setCurrentPage } from "../redux/slices/filterSlice";
-import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzasSlice";
 import Categories from "../components/Categories";
 import Sort from "../components/Sort/index";
 import PizzaBlock from "../components/PizzaBlock";
 import PizzaLoader from "../components/PizzaBlock/PizzaLoader";
 import Pagination from "../components/Pagination";
 import { useAppDispatch } from "../redux/store";
+import { selectFilter } from "../redux/filter/selectots";
+import { selectPizzaData } from "../redux/pizza/selectors";
+import { fetchPizzas } from "../redux/pizza/asyncActions";
+import { setCurrentPage } from "../redux/filter/slice";
 
 const Home: React.FC = () => {
   const { sortType, searchValue, categoryName, currentPage } = useSelector(selectFilter);
@@ -76,8 +78,8 @@ const Home: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    // !isSearch.current && 
-		getPizzas();
+    // !isSearch.current &&
+    getPizzas();
 
     // isSearch.current = false;
   }, [categoryName, sortType, searchValue, currentPage]);
@@ -97,8 +99,6 @@ const Home: React.FC = () => {
   return (
     <div className="container">
       <div className="content__top">
-
-
         <Categories />
         <Sort />
       </div>

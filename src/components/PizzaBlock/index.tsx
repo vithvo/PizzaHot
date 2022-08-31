@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { CartItemType, selectCartItemById, setItem } from "../../redux/slices/cartSlice";
+import { selectCartItemById } from "../../redux/cart/selectors";
+import { setItem } from "../../redux/cart/slice";
+import { CartItemType } from "../../redux/cart/types";
 
 export const typesPizza = ["Тонкое", "Традиционное"];
 

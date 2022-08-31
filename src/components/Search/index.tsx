@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { setSearchValue } from "../../redux/filter/slice";
 import styles from "./Search.module.scss";
 
-const Search: React.FC = () => {
+export const Search: React.FC = () => {
   const [value, setValue] = useState("");
 
   const dispatch = useDispatch();
@@ -76,4 +76,3 @@ const Search: React.FC = () => {
   );
 };
 
-export default Search;

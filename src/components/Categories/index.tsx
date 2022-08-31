@@ -5,7 +5,7 @@ import { setCategoryName } from "../../redux/filter/slice";
 
 const categories = ["Все", "Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"];
 
-const Categories: React.FC = memo(() => {
+export const Categories: React.FC = memo(() => {
   const categoryName = useSelector((state: any) => state.filter.categoryName);
   const dispatch = useDispatch();
 
@@ -32,4 +32,4 @@ const Categories: React.FC = memo(() => {
   );
 });
 
-export default Categories;
+

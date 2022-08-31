@@ -2,10 +2,10 @@ import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
+import MainLayouts from "./layouts/MainLayouts";
 // import NotFound from "./pages/NotFound";
 // import Cart from "./pages/Cart";
 // import FullPizza from "./pages/FullPizza";
-import MainLayouts from "./layouts/MainLayouts";
 
 import "./scss/app.scss";
 

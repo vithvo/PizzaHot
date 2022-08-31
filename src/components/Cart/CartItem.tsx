@@ -4,7 +4,15 @@ import { useDispatch } from "react-redux";
 import { setItem, unSetItem, removeItem } from "../../redux/cart/slice";
 import { CartItemType } from "../../redux/cart/types";
 
-const CartItem: React.FC<CartItemType> = ({ id, title, price, type, count, image, size }) => {
+export const CartItem: React.FC<CartItemType> = ({
+  id,
+  title,
+  price,
+  type,
+  count,
+  image,
+  size,
+}) => {
   const dispatch = useDispatch();
 
   const onClickPlus = () => dispatch(setItem({ id } as CartItemType));
@@ -96,5 +104,3 @@ const CartItem: React.FC<CartItemType> = ({ id, title, price, type, count, image
     </div>
   );
 };
-
-export default CartItem;

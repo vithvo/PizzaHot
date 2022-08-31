@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 
 import logoSvg from "../../assets/img/logo.svg";
 
-import Search from "../Search";
+import { Search } from "../Search";
 import { selectCart } from "../../redux/cart/selectors";
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   const { items, totalPrice } = useSelector(selectCart);
   const isMounted = useRef(false);
   const location = useLocation();
@@ -89,5 +89,3 @@ const Header: React.FC = () => {
     </div>
   );
 };
-
-export default Header;

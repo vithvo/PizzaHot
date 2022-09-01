@@ -12,7 +12,7 @@ export type SearchPizzaParams = {
   sortBy: string;
   category: string;
   search: string;
-  currentPage: string;
+  currentPage: number;
 };
 
 export enum Status {

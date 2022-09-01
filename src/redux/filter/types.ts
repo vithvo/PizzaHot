@@ -1,3 +1,5 @@
+import { SortItemType } from "../../components";
+
 export enum SortPropertyEnum {
   RATING_ASC = "rating",
   RATING_DESC = "-rating",
@@ -15,6 +17,6 @@ export type SortTypes = {
 export interface FilterSliceState {
   searchValue: string;
   categoryName: string;
-  sortType: SortTypes;
+  sortType: SortItemType;
   currentPage: number;
 }

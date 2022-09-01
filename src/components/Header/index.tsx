@@ -16,6 +16,7 @@ export const Header: React.FC = () => {
     if (isMounted.current) {
       const json = JSON.stringify(items);
       localStorage.setItem("cart", json);
+      console.log(json);
     }
 
     isMounted.current = true;
@@ -39,7 +40,7 @@ export const Header: React.FC = () => {
           {location.pathname !== "/Cart" && (
             <div className="header__cart">
               <button className="button button--cart">
-                <span>{totalPrice} ₽</span>
+                <span>{Math.ceil(totalPrice)} ₽</span>
                 <div className="button__delimiter"></div>
                 <svg
                   width="18"

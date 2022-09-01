@@ -18,7 +18,6 @@ export const filterSlice = createSlice({
   reducers: {
     setCategoryName(state, action: PayloadAction<string>) {
       state.categoryName = action.payload;
-      console.log(state.categoryName);
     },
 
     setSortType(state, action: PayloadAction<SortTypes>) {
@@ -31,14 +30,12 @@ export const filterSlice = createSlice({
       state.currentPage = action.payload;
     },
     setFilters(state, action: PayloadAction<FilterSliceState>) {
-      state.currentPage = action.payload.currentPage;
       state.sortType = action.payload.sortType;
-      state.categoryName = action.payload.categoryName;
+      state.currentPage = Number(action.payload.currentPage);
+      state.categoryName = String(action.payload.categoryName);
     },
   },
 });
-
-
 
 export const { setCategoryName, setSortType, setSearchValue, setCurrentPage, setFilters } =
   filterSlice.actions;

@@ -24,7 +24,6 @@ export const PizzaBlock: React.FC<PizzaBlockProp> = ({ id, title, price, image, 
 
   const cartItem = useSelector(selectCartItemById(id));
 
-  const addedCount = cartItem ? cartItem.count : 0;
   const priceType = activeType ? price * 1.2 : price;
   price = activeSize
     ? activeSize == 1
@@ -35,6 +34,7 @@ export const PizzaBlock: React.FC<PizzaBlockProp> = ({ id, title, price, image, 
   const onClickAdd = () => {
     const item: CartItemType = {
       id,
+
       title,
       price,
       image,
@@ -42,9 +42,11 @@ export const PizzaBlock: React.FC<PizzaBlockProp> = ({ id, title, price, image, 
       size: sizes[activeSize],
       count: 0,
     };
+
     dispatch(setItem(item));
   };
 
+  const addedCount = cartItem ? cartItem.count : 0;
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">

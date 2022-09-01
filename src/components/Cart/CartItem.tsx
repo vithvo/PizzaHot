@@ -6,6 +6,7 @@ import { CartItemType } from "../../redux/cart/types";
 
 export const CartItem: React.FC<CartItemType> = ({
   id,
+
   title,
   price,
   type,
@@ -15,9 +16,12 @@ export const CartItem: React.FC<CartItemType> = ({
 }) => {
   const dispatch = useDispatch();
 
-  const onClickPlus = () => dispatch(setItem({ id } as CartItemType));
-  const onClickMinus = () => dispatch(unSetItem({ id } as CartItemType));
-  const onClickRemove = () => dispatch(removeItem({ id } as CartItemType));
+  const onClickPlus = () =>
+    dispatch(setItem({ id,  title, price, type, count, image, size } as CartItemType));
+  const onClickMinus = () =>
+    dispatch(unSetItem({ id,  title, price, type, count, image, size } as CartItemType));
+  const onClickRemove = () =>
+    dispatch(removeItem({ id,  title, price, type, count, image, size } as CartItemType));
 
   return (
     <div className="cart__item">
@@ -79,7 +83,7 @@ export const CartItem: React.FC<CartItemType> = ({
         </button>
       </div>
       <div className="cart__item-price">
-        <b>{price * count} ₽</b>
+        <b>{Math.ceil(price * count)} ₽</b>
       </div>
       <div className="cart__item-remove">
         <button onClick={() => onClickRemove()} className="button button--outline button--circle">

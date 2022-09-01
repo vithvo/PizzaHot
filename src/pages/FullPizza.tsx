@@ -7,6 +7,7 @@ const FullPizza: React.FC = () => {
     image: string;
     title: string;
     price: number;
+    desc: string;
   }>();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -29,15 +30,18 @@ const FullPizza: React.FC = () => {
     <>
       {pizza && (
         <>
-          <div className="container cart--empty">
+          <div className="fullPizza">
             <img src={pizza.image} alt="Pizza" />
-            <h2>{pizza.title}</h2>
-            <h4>{pizza.price} руб.</h4>
-            <Link to="/">
-              <button className="button button--black">
-                <span>Вернуться назад</span>
-              </button>
-            </Link>
+            <div className="fullPizzaDiscription">
+              <h2>{pizza.title}</h2>
+              <h3>{pizza.desc}</h3>
+              <h4>{pizza.price} руб.</h4>
+              <Link to="/">
+                <button className="button button--black">
+                  <span>Вернуться назад</span>
+                </button>
+              </Link>
+            </div>
           </div>
         </>
       )}
